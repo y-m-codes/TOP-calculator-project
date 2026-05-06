@@ -32,6 +32,16 @@ const calculatorInner = document.querySelector("#div-calculator-inner");
 
 const displayPanel = document.querySelector("#div-display-panel");
 
+// finding out what default/void value of innerText is
+
+// if (displayPanel.innerText === "") {
+//   console.log('displayPanel.innerText === ""')
+// }
+// else {
+//   console.log('displayPanel.innerText IS NOT "" undefined NOR null')
+// };
+
+
 const keypad = document.querySelector("#div-keypad");
 
 const numberBtns = document.querySelectorAll(".number");
@@ -39,6 +49,19 @@ const numberBtns = document.querySelectorAll(".number");
 // display clicked numbers in display panel
 numberBtns.forEach((numberBtn) =>
   numberBtn.addEventListener("click", () => {
-    displayPanel.textContent = numberBtn.textContent
-  })
+    if (displayPanel.textContent === "") {
+      displayPanel.textContent = numberBtn.textContent;
+      firstNumber = numberBtn.innerText;
+    }
+    else {
+      secondNumber = numberBtn.innerText;
+    }
+    console.log("firstNumber:", firstNumber, "secondNumber:", secondNumber)
+  }
+  )
 );
+
+// next steps:
+// 1. when i click a number from a blank/refreshed calculator, why does the
+//  value go to secondNumber instead of firstNumber?
+// 2. the secondNumber should not displace the firstNumber

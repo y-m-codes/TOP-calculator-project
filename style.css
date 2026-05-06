@@ -1,0 +1,19 @@
+.visible-border {
+  border-style: solid;
+  border-color: navy;
+}
+
+.invisible-border {
+  border-style: dashed;
+  border-color: darkorchid;
+}
+
+#div-keypad {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.keypad-cluster {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,4 +1,4 @@
-// formulae
+// math formulae
 
 function add(a, b) {
   return a + b
@@ -27,5 +27,18 @@ function operate(a, b, calculation) {
   return calculation(a, b)
 }
 
+// create HTML calculator objects in JS
+const calculatorInner = document.querySelector("#div-calculator-inner");
 
-console.log(operate(9, 3, add));
+const displayPanel = document.querySelector("#div-display-panel");
+
+const keypad = document.querySelector("#div-keypad");
+
+const numberBtns = document.querySelectorAll(".number");
+
+// display clicked numbers in display panel
+numberBtns.forEach((numberBtn) =>
+  numberBtn.addEventListener("click", () => {
+    displayPanel.textContent = numberBtn.textContent
+  })
+);

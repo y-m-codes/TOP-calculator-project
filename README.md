@@ -1,5 +1,10 @@
 The Odin Project, Foundations: calculator (final project).
 
+Tasks:
+1. when an operand button is clicked, it is added to the display panel and staged for calculation.
+2. #1 will only occur if there is at least 1 digit in the display panel and if firstNumber has a value.
+3. firstNumber and secondNumber are individual numbers but can consist of numerous digits. e.g. "123"
+
 Requirements (from TOP assignment and my own thinking):
 1. the user enters numbers & operands in order (e.g. "1 + 2)
 2. the calculation is performed when there is a number, operand, and number,
@@ -33,4 +38,4 @@ clear the display and memory, and input the selected number for a new
 calculation.
 
 Ideas for future exploring:
-1) refactor: for the HTMl buttons, I could use a JS loop to create them with tags.
+1) refactor: for the HTML buttons, I could use a JS loop to create them with tags.

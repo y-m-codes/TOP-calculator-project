@@ -55,6 +55,9 @@ const equalsBtn = document.getElementById("equals");
 
 const decimalBtn = document.getElementById("decimal");
 
+const clearBtn = document.getElementById("clear");
+
+
 // key:value pairs for operator text to symbols
 const operators = {
   add: "+",
@@ -97,7 +100,7 @@ function magic(btnType, btnValue) {
       displayPanelText.textContent += btnValue;
       break
     case "backspace":
-      // how does the backspace get treated?
+      console.log(displayPanelText.textContent);
       break
     case "clear":
       displayPanelText.textContent = "";
@@ -124,4 +127,8 @@ equalsBtn.addEventListener("click", () => {
 
 decimalBtn.addEventListener("click", () => {
   magic("decimal", ".")
+});
+
+clearBtn.addEventListener("click", () => {
+  magic("clear", null)
 });

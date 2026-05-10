@@ -8,10 +8,10 @@ The "happy path":
 5. User clicks "equals".
 6. Evaluated number is displayed.
 7. User either clears and starts from #1, or continues from 3.
-> The user may "backspace" to delete the last single digit/operator entered.
-> The pos/neg button will be applied to the number succeeding it, and must
+
+- The user may "backspace" to delete the last single digit/operator entered.
+- The pos/neg button will be applied to the number succeeding it, and must
 be inputted in that order, e.g. to get "-1" the order is: [+/-] -> [1].
-> Decimals will be rounded to 2 places.
 
 Requirements and limitations:
 1. If multiple chained calculations are entered (e.g. 1+2+3+4 ... etc), only the first one will be evaluated on clicking equals. Anything after the second operand will be cleared and discarded.

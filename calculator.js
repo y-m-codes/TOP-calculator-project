@@ -1,5 +1,4 @@
 // math formulae
-
 function add(a, b) {
   return a + b
 }
@@ -21,11 +20,22 @@ let firstNumber = 0
 let secondNumber = 0
 let operator = null
 
-// operate function
-
-function operate(a, b, calculation) {
-  return calculation(a, b)
-}
+// calculate function
+function operate(a, b, operator) {
+  switch (operator) {
+    case "add":
+      return add(a, b)
+      break
+    case "subtract":
+      return subtract(a, b)
+      break
+    case "multiply":
+      return multiply(a, b)
+      break
+    case "divide":
+      return divide(a, b)
+      break
+}};
 
 // create HTML calculator objects in JS
 const calculatorInner = document.querySelector("#div-calculator-inner");
@@ -40,8 +50,28 @@ const numberBtns = document.querySelectorAll(".number");
 
 const operatorBtns = document.querySelectorAll(".operator");
 
-// const addBtn = document.getElementById("add");
-// console.log(addBtn.classList[addBtn.classList.length - 1]);
+const equalsBtn = document.getElementById("equals");
+
+const decimalBtn = document.getElementById("decimal");
+
+const backspaceBtn = document.getElementById("backspace");
+
+const clearBtn = document.getElementById("clear");
+
+// key:value pairs for operator text to symbols & vice versa
+const operators = {
+  add: "+",
+  subtract: "-",
+  divide: "/",
+  multiply: "*",
+};
+
+const reverseOperators = {
+  "+": "add",
+  "-": "subtract",
+  "/": "divide",
+  "*": "multiply",
+};
 
 // outlining how all buttons get treated upon clicking
 function magic(btnType, btnValue) {
@@ -74,13 +104,22 @@ function magic(btnType, btnValue) {
         console.log("You must evaluate this operation first before adding another.")
       };
     case "equals":
-      // how does equals get treated?
-    case "sign":
-      // how does the sign get treated?
+      let str = displayPanelText.textContent;
+      console.log(str);
+      let regexp = /(-*\d*\.?\d+)(\+|-|\/|\*)(-*\d*\.?\d+)/;
+      // let regexp = /(\d*\.?\d+)(\+|-|\/|\*)(\d*\.?\d+)/;
+      let match = str.match(regexp);
+      firstNumber = Number(match[1], 10);
+      operator = reverseOperators[match[2]];
+      secondNumber = Number(match[3], 10);
+      let result = operate(firstNumber, secondNumber, operator);
+      displayPanelText.textContent = result;
+      break
     case "decimal":
       // how does the decimal get treated?
     case "backspace":
-      // how does the backspace get treated?
+      displayPanelText.textContent = displayPanelText.textContent.slice(0, -1);
+      break
     case "clear":
       // how does the clear button get treated?
   }
@@ -99,33 +138,14 @@ numberBtns.forEach((numberBtn) =>
   })
 );
 
+decimalBtn.addEventListener("click", () => {
+  magic("decimal", ".")
+});
 
+backspaceBtn.addEventListener("click", () => {
+  magic("backspace", null)
+});
 
-// operatorBtns.forEach((operatorBtn) =>
-//   operatorBtn.addEventListener("click", () => {
-//     if (displayPanelText.textContent === "") {
-//       console.log("Error: An operator must succeed a number.")
-//     }
-    // else if (displayPanelText.textContent.includes(/[+\-*/]/g)) {
-    //   console.log("Error: Only one operator can be calculated at a time.")
-    // }
-    // else if (displayPanelText.textContent !== "") {
-    //   displayPanelText.textContent += operatorBtn.textContent;
-    //   operator = operatorBtn.innerText;
-    // }
-    // console.log("operator", operatorBtn.innerText)
-  // }
-//   )
-// );
-
-
-// TO DO:
-// 1. when I click a number button, why does the btnValue add to the display panel twice?
-// This only occurred once I fiddled with the operator case. It didn't occur when I tested the number case initially.
-// 2. Line 70: when the display panel is not empty && there are only numbers, then operators can be accepted.
-// I use the operatorBtn id to set the operator function.
-// HOWEVER, I need the operator SYMBOL to set the display panel.
-// The symbol would be accessed through the p-tag of the btn.
-// but my magic() function only takes two parameters, neither of them being the SYMBOL.
-// and if I add a third, it won't be used in all cases, so wouldn't that create problems by having a missing parameter half the time?
-// is there any kind of built in function logic that you can omit a parameter and it just assumes it's not needed?
+clearBtn.addEventListener("click", () => {
+  magic("clear", null)
+});

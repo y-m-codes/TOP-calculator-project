@@ -22,9 +22,6 @@ let secondNumber = 0
 let operator = null
 
 // calculate function
-// replace with case statement based on operator
-// using operator like this doesn't work - it returns a string not a function
-// do a switch statement based on the operator
 function operate(a, b, operator) {
   switch (operator) {
     case "add":
@@ -41,8 +38,6 @@ function operate(a, b, operator) {
       break
 }}
 
-// console.log(operate(10, 5, "subtract"))
-
 // create HTML calculator objects in JS
 const calculatorInner = document.querySelector("#div-calculator-inner");
 
@@ -57,6 +52,8 @@ const numberBtns = document.querySelectorAll(".number");
 const operatorBtns = document.querySelectorAll(".operator");
 
 const equalsBtn = document.getElementById("equals");
+
+const decimalBtn = document.getElementById("decimal");
 
 // key:value pairs for operator text to symbols
 const operators = {
@@ -84,11 +81,12 @@ function magic(btnType, btnValue) {
       break
     case "equals":
       let str = displayPanelText.textContent;
-      let regexp = /(\d+)(\+|-|\/|\*)(\d+)/;
+      console.log(str);
+      let regexp = /(\d*\.?\d+)(\+|-|\/|\*)(\d*\.?\d+)/;
       let match = str.match(regexp);
-      firstNumber = parseInt(match[1]);
+      firstNumber = parseFloat(match[1], 10);
       operator = reverseOperators[match[2]];
-      secondNumber = parseInt(match[3]);
+      secondNumber = parseFloat(match[3], 10);
       let result = operate(firstNumber, secondNumber, operator);
       displayPanelText.textContent = result;
       break
@@ -124,37 +122,6 @@ equalsBtn.addEventListener("click", () => {
   magic("equals", equalsBtn.id)
 });
 
-
-// const addBtn = document.getElementById("add").innerText;
-// console.log(addBtn);
-
-// operatorBtns.forEach((operatorBtn) =>
-//   operatorBtn.addEventListener("click", () => {
-//     if (displayPanelText.textContent === "") {
-//       console.log("Error: An operator must succeed a number.")
-//     }
-    // else if (displayPanelText.textContent.includes(/[+\-*/]/g)) {
-    //   console.log("Error: Only one operator can be calculated at a time.")
-    // }
-    // else if (displayPanelText.textContent !== "") {
-    //   displayPanelText.textContent += operatorBtn.textContent;
-    //   operator = operatorBtn.innerText;
-    // }
-    // console.log("operator", operatorBtn.innerText)
-  // }
-//   )
-// );
-
-// if (displayPanelText.textContent === "") {
-//   displayPanelText.textContent = btnValue;
-//   firstNumber = btnValue;
-// }
-// else if (/^\d+$/.test(displayPanelText.textContent.trim())) {
-//   displayPanelText.textContent += btnValue;
-//   firstNumber += btnValue;
-// }
-// else if (/[+\-*/]/g.test(displayPanelText.textContent.trim())) {
-//   displayPanelText.textContent += btnValue;
-//   secondNumber = btnValue;
-// };
-// console.log("firstNumber:", firstNumber, "secondNumber:", secondNumber);
+decimalBtn.addEventListener("click", () => {
+  magic("decimal", ".")
+});

@@ -77,32 +77,11 @@ const reverseOperators = {
 function magic(btnType, btnValue) {
   switch (btnType) {
     case "number":
-      if (displayPanelText.textContent === "") {
-        displayPanelText.textContent = btnValue;
-        firstNumber = btnValue;
-      }
-      else if (/^\d+$/.test(displayPanelText.textContent.trim())) {
-        displayPanelText.textContent += btnValue;
-        firstNumber += btnValue;
-      }
-      else if (/[+\-*/]/g.test(displayPanelText.textContent.trim())) {
-        displayPanelText.textContent += btnValue;
-        secondNumber = btnValue; // test this after the operator case is written
-      };
-      console.log("firstNumber:", firstNumber, "secondNumber:", secondNumber);
+      displayPanelText.textContent += btnValue;
+      break
     case "operator":
-      console.log("An operator button was clicked.")
-      console.log("btnType:", btnType, "btnValue", btnValue, "is a", typeof(btnValue));
-      if (displayPanelText.textContent === "") {
-        console.log("You must add a number first.")
-      }
-      else if (/^\d+$/.test(displayPanelText.textContent.trim())) {
-        displayPanelText.textContent += btnValue; // this needs to be the btn.innerText
-        operator = btnValue;
-      }
-      else if (/[+\-*/]/g.test(displayPanelText.textContent.trim())) {
-        console.log("You must evaluate this operation first before adding another.")
-      };
+      displayPanelText.textContent += operators[btnValue];
+      break
     case "equals":
       let str = displayPanelText.textContent;
       console.log(str);
@@ -116,27 +95,33 @@ function magic(btnType, btnValue) {
       displayPanelText.textContent = result;
       break
     case "decimal":
-      // how does the decimal get treated?
+      displayPanelText.textContent += btnValue;
+      break
     case "backspace":
       displayPanelText.textContent = displayPanelText.textContent.slice(0, -1);
       break
     case "clear":
-      // how does the clear button get treated?
+      displayPanelText.textContent = "";
+      break
   }
 };
 
 // event listeners for all buttons, directing to magic()
-operatorBtns.forEach((operatorBtn) =>
-  operatorBtn.addEventListener("click", () => {
-    magic(operatorBtn.classList[operatorBtn.classList.length - 1], operatorBtn.id)
-  })
-)
-
 numberBtns.forEach((numberBtn) =>
   numberBtn.addEventListener("click", () => {
-    magic(numberBtn.classList[numberBtn.classList.length - 1], numberBtn.innerText)
+    magic("number", numberBtn.innerText)
   })
 );
+
+operatorBtns.forEach((operatorBtn) =>
+  operatorBtn.addEventListener("click", () => {
+    magic("operator", operatorBtn.id)
+  })
+);
+
+equalsBtn.addEventListener("click", () => {
+  magic("equals", equalsBtn.id)
+});
 
 decimalBtn.addEventListener("click", () => {
   magic("decimal", ".")

@@ -1,5 +1,4 @@
 // math formulae
-
 function add(a, b) {
   return a + b
 }
@@ -36,7 +35,7 @@ function operate(a, b, operator) {
     case "divide":
       return divide(a, b)
       break
-}}
+}};
 
 // create HTML calculator objects in JS
 const calculatorInner = document.querySelector("#div-calculator-inner");
@@ -57,8 +56,10 @@ const decimalBtn = document.getElementById("decimal");
 
 const clearBtn = document.getElementById("clear");
 
+const backspaceBtn = document.getElementById("backspace");
 
-// key:value pairs for operator text to symbols
+
+// key:value pairs for operator text to symbols & vice versa
 const operators = {
   add: "+",
   subtract: "-",
@@ -100,7 +101,7 @@ function magic(btnType, btnValue) {
       displayPanelText.textContent += btnValue;
       break
     case "backspace":
-      console.log(displayPanelText.textContent);
+      displayPanelText.textContent = displayPanelText.textContent.slice(0, -1);
       break
     case "clear":
       displayPanelText.textContent = "";
@@ -131,4 +132,8 @@ decimalBtn.addEventListener("click", () => {
 
 clearBtn.addEventListener("click", () => {
   magic("clear", null)
+});
+
+backspaceBtn.addEventListener("click", () => {
+  magic("backspace", null)
 });

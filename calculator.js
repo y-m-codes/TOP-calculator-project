@@ -77,11 +77,32 @@ const reverseOperators = {
 function magic(btnType, btnValue) {
   switch (btnType) {
     case "number":
-      displayPanelText.textContent += btnValue;
-      break
+      if (displayPanelText.textContent === "") {
+        displayPanelText.textContent = btnValue;
+        firstNumber = btnValue;
+      }
+      else if (/^\d+$/.test(displayPanelText.textContent.trim())) {
+        displayPanelText.textContent += btnValue;
+        firstNumber += btnValue;
+      }
+      else if (/[+\-*/]/g.test(displayPanelText.textContent.trim())) {
+        displayPanelText.textContent += btnValue;
+        secondNumber = btnValue; // test this after the operator case is written
+      };
+      console.log("firstNumber:", firstNumber, "secondNumber:", secondNumber);
     case "operator":
-      displayPanelText.textContent += operators[btnValue];
-      break
+      console.log("An operator button was clicked.")
+      console.log("btnType:", btnType, "btnValue", btnValue, "is a", typeof(btnValue));
+      if (displayPanelText.textContent === "") {
+        console.log("You must add a number first.")
+      }
+      else if (/^\d+$/.test(displayPanelText.textContent.trim())) {
+        displayPanelText.textContent += btnValue; // this needs to be the btn.innerText
+        operator = btnValue;
+      }
+      else if (/[+\-*/]/g.test(displayPanelText.textContent.trim())) {
+        console.log("You must evaluate this operation first before adding another.")
+      };
     case "equals":
       let str = displayPanelText.textContent;
       console.log(str);
@@ -95,33 +116,27 @@ function magic(btnType, btnValue) {
       displayPanelText.textContent = result;
       break
     case "decimal":
-      displayPanelText.textContent += btnValue;
-      break
+      // how does the decimal get treated?
     case "backspace":
       displayPanelText.textContent = displayPanelText.textContent.slice(0, -1);
       break
     case "clear":
-      displayPanelText.textContent = "";
-      break
+      // how does the clear button get treated?
   }
 };
 
 // event listeners for all buttons, directing to magic()
-numberBtns.forEach((numberBtn) =>
-  numberBtn.addEventListener("click", () => {
-    magic("number", numberBtn.innerText)
-  })
-);
-
 operatorBtns.forEach((operatorBtn) =>
   operatorBtn.addEventListener("click", () => {
-    magic("operator", operatorBtn.id)
+    magic(operatorBtn.classList[operatorBtn.classList.length - 1], operatorBtn.id)
+  })
+)
+
+numberBtns.forEach((numberBtn) =>
+  numberBtn.addEventListener("click", () => {
+    magic(numberBtn.classList[numberBtn.classList.length - 1], numberBtn.innerText)
   })
 );
-
-equalsBtn.addEventListener("click", () => {
-  magic("equals", equalsBtn.id)
-});
 
 decimalBtn.addEventListener("click", () => {
   magic("decimal", ".")

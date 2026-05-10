@@ -21,11 +21,27 @@ let firstNumber = 0
 let secondNumber = 0
 let operator = null
 
-// operate function
+// calculate function
+// replace with case statement based on operator
+// using operator like this doesn't work - it returns a string not a function
+// do a switch statement based on the operator
+function operate(a, b, operator) {
+  switch (operator) {
+    case "add":
+      return add(a, b)
+      break
+    case "subtract":
+      return subtract(a, b)
+      break
+    case "multiply":
+      return multiply(a, b)
+      break
+    case "divide":
+      return divide(a, b)
+      break
+}}
 
-function operate(a, b, calculation) {
-  return calculation(a, b)
-}
+// console.log(operate(10, 5, "subtract"))
 
 // create HTML calculator objects in JS
 const calculatorInner = document.querySelector("#div-calculator-inner");
@@ -40,66 +56,77 @@ const numberBtns = document.querySelectorAll(".number");
 
 const operatorBtns = document.querySelectorAll(".operator");
 
-// const addBtn = document.getElementById("add");
-// console.log(addBtn.classList[addBtn.classList.length - 1]);
+const equalsBtn = document.getElementById("equals");
+
+// key:value pairs for operator text to symbols
+const operators = {
+  add: "+",
+  subtract: "-",
+  divide: "/",
+  multiply: "*",
+};
+
+const reverseOperators = {
+  "+": "add",
+  "-": "subtract",
+  "/": "divide",
+  "*": "multiply",
+};
 
 // outlining how all buttons get treated upon clicking
 function magic(btnType, btnValue) {
   switch (btnType) {
     case "number":
-      if (displayPanelText.textContent === "") {
-        displayPanelText.textContent = btnValue;
-        firstNumber = btnValue;
-      }
-      else if (/^\d+$/.test(displayPanelText.textContent.trim())) {
-        displayPanelText.textContent += btnValue;
-        firstNumber += btnValue;
-      }
-      else if (/[+\-*/]/g.test(displayPanelText.textContent.trim())) {
-        displayPanelText.textContent += btnValue;
-        secondNumber = btnValue; // test this after the operator case is written
-      };
-      console.log("firstNumber:", firstNumber, "secondNumber:", secondNumber);
+      displayPanelText.textContent += btnValue;
+      break
     case "operator":
-      console.log("An operator button was clicked.")
-      console.log("btnType:", btnType, "btnValue", btnValue, "is a", typeof(btnValue));
-      if (displayPanelText.textContent === "") {
-        console.log("You must add a number first.")
-      }
-      else if (/^\d+$/.test(displayPanelText.textContent.trim())) {
-        displayPanelText.textContent += btnValue; // this needs to be the btn.innerText
-        operator = btnValue;
-      }
-      else if (/[+\-*/]/g.test(displayPanelText.textContent.trim())) {
-        console.log("You must evaluate this operation first before adding another.")
-      };
+      displayPanelText.textContent += operators[btnValue];
+      break
     case "equals":
-      // how does equals get treated?
+      let str = displayPanelText.textContent;
+      let regexp = /(\d+)(\+|-|\/|\*)(\d+)/;
+      let match = str.match(regexp);
+      firstNumber = parseInt(match[1]);
+      operator = reverseOperators[match[2]];
+      secondNumber = parseInt(match[3]);
+      let result = operate(firstNumber, secondNumber, operator);
+      displayPanelText.textContent = result;
+      break
     case "sign":
       // how does the sign get treated?
+      break
     case "decimal":
-      // how does the decimal get treated?
+      displayPanelText.textContent += btnValue;
+      break
     case "backspace":
       // how does the backspace get treated?
+      break
     case "clear":
-      // how does the clear button get treated?
+      displayPanelText.textContent = "";
+      break
   }
 };
 
 // event listeners for all buttons, directing to magic()
-operatorBtns.forEach((operatorBtn) =>
-  operatorBtn.addEventListener("click", () => {
-    magic(operatorBtn.classList[operatorBtn.classList.length - 1], operatorBtn.id)
-  })
-)
-
 numberBtns.forEach((numberBtn) =>
   numberBtn.addEventListener("click", () => {
-    magic(numberBtn.classList[numberBtn.classList.length - 1], numberBtn.innerText)
+    magic("number", numberBtn.innerText)
   })
 );
 
+operatorBtns.forEach((operatorBtn) =>
+  operatorBtn.addEventListener("click", () => {
+    magic("operator", operatorBtn.id)
+  })
+);
 
+equalsBtn.addEventListener("click", () => {
+  magic("equals", equalsBtn.id)
+});
+
+
+// const addBtn = document.getElementById("add").innerText;
+// console.log(addBtn);
 
 // operatorBtns.forEach((operatorBtn) =>
 //   operatorBtn.addEventListener("click", () => {
@@ -118,14 +145,16 @@ numberBtns.forEach((numberBtn) =>
 //   )
 // );
 
-
-// TO DO:
-// 1. when I click a number button, why does the btnValue add to the display panel twice?
-// This only occurred once I fiddled with the operator case. It didn't occur when I tested the number case initially.
-// 2. Line 70: when the display panel is not empty && there are only numbers, then operators can be accepted.
-// I use the operatorBtn id to set the operator function.
-// HOWEVER, I need the operator SYMBOL to set the display panel.
-// The symbol would be accessed through the p-tag of the btn.
-// but my magic() function only takes two parameters, neither of them being the SYMBOL.
-// and if I add a third, it won't be used in all cases, so wouldn't that create problems by having a missing parameter half the time?
-// is there any kind of built in function logic that you can omit a parameter and it just assumes it's not needed?
+// if (displayPanelText.textContent === "") {
+//   displayPanelText.textContent = btnValue;
+//   firstNumber = btnValue;
+// }
+// else if (/^\d+$/.test(displayPanelText.textContent.trim())) {
+//   displayPanelText.textContent += btnValue;
+//   firstNumber += btnValue;
+// }
+// else if (/[+\-*/]/g.test(displayPanelText.textContent.trim())) {
+//   displayPanelText.textContent += btnValue;
+//   secondNumber = btnValue;
+// };
+// console.log("firstNumber:", firstNumber, "secondNumber:", secondNumber);

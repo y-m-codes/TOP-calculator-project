@@ -24,11 +24,24 @@ let operator = null
 // calculate function
 // replace with case statement based on operator
 // using operator like this doesn't work - it returns a string not a function
-function calculate(a, operator, b) {
-  return operator(a, b)
-}
+// do a switch statement based on the operator
+function operate(a, b, operator) {
+  switch (operator) {
+    case "add":
+      return add(a, b)
+      break
+    case "subtract":
+      return subtract(a, b)
+      break
+    case "multiply":
+      return multiply(a, b)
+      break
+    case "divide":
+      return divide(a, b)
+      break
+}}
 
-console.log(calculate(10, subtract, 5))
+// console.log(operate(10, 5, "subtract"))
 
 // create HTML calculator objects in JS
 const calculatorInner = document.querySelector("#div-calculator-inner");
@@ -64,27 +77,20 @@ const reverseOperators = {
 function magic(btnType, btnValue) {
   switch (btnType) {
     case "number":
-      console.log("btnType", btnType)
-      console.log("btnValue", btnValue)
       displayPanelText.textContent += btnValue;
-      console.log("displayPanelText.textContent", displayPanelText.textContent)
       break
     case "operator":
-      console.log("btnType", btnType)
-      console.log("btnValue", btnValue)
       displayPanelText.textContent += operators[btnValue];
-      console.log("displayPanelText.textContent", displayPanelText.textContent)
       break
     case "equals":
-      console.log("equals:", displayPanelText.textContent);
       let str = displayPanelText.textContent;
       let regexp = /(\d+)(\+|-|\/|\*)(\d+)/;
       let match = str.match(regexp);
-      firstNumber = match[1];
+      firstNumber = parseInt(match[1]);
       operator = reverseOperators[match[2]];
-      secondNumber = match[3];
-      console.log("firstNumber:", firstNumber, "operator:", operator, "secondNumber", secondNumber);
-      console.log(calculate(firstNumber, operator, secondNumber))
+      secondNumber = parseInt(match[3]);
+      let result = operate(firstNumber, secondNumber, operator);
+      displayPanelText.textContent = result;
       break
     case "sign":
       // how does the sign get treated?
@@ -152,14 +158,3 @@ equalsBtn.addEventListener("click", () => {
 //   secondNumber = btnValue;
 // };
 // console.log("firstNumber:", firstNumber, "secondNumber:", secondNumber);
-
-// if (displayPanelText.textContent === "") {
-//   console.log("You must add a number first.")
-// }
-// else if (/^\d+$/.test(displayPanelText.textContent.trim())) {
-//   // displayPanelText.textContent += btnValue; // this needs to be the btn.innerText
-//   operator = btnValue;
-// }
-// else if (/[+\-*/]/g.test(displayPanelText.textContent.trim())) {
-//   console.log("You must evaluate this operation first before adding another.")
-// };

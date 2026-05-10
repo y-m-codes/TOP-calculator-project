@@ -54,10 +54,9 @@ const equalsBtn = document.getElementById("equals");
 
 const decimalBtn = document.getElementById("decimal");
 
-const clearBtn = document.getElementById("clear");
-
 const backspaceBtn = document.getElementById("backspace");
 
+const clearBtn = document.getElementById("clear");
 
 // key:value pairs for operator text to symbols & vice versa
 const operators = {
@@ -86,16 +85,14 @@ function magic(btnType, btnValue) {
     case "equals":
       let str = displayPanelText.textContent;
       console.log(str);
-      let regexp = /(\d*\.?\d+)(\+|-|\/|\*)(\d*\.?\d+)/;
+      let regexp = /(-*\d*\.?\d+)(\+|-|\/|\*)(-*\d*\.?\d+)/;
+      // let regexp = /(\d*\.?\d+)(\+|-|\/|\*)(\d*\.?\d+)/;
       let match = str.match(regexp);
-      firstNumber = parseFloat(match[1], 10);
+      firstNumber = Number(match[1], 10);
       operator = reverseOperators[match[2]];
-      secondNumber = parseFloat(match[3], 10);
+      secondNumber = Number(match[3], 10);
       let result = operate(firstNumber, secondNumber, operator);
       displayPanelText.textContent = result;
-      break
-    case "sign":
-      // how does the sign get treated?
       break
     case "decimal":
       displayPanelText.textContent += btnValue;
@@ -130,10 +127,10 @@ decimalBtn.addEventListener("click", () => {
   magic("decimal", ".")
 });
 
-clearBtn.addEventListener("click", () => {
-  magic("clear", null)
-});
-
 backspaceBtn.addEventListener("click", () => {
   magic("backspace", null)
+});
+
+clearBtn.addEventListener("click", () => {
+  magic("clear", null)
 });

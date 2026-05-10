@@ -9,16 +9,12 @@ The "happy path":
 6. Evaluated number is displayed.
 7. User either clears and starts from #1, or continues from 3.
 
-- The user may "backspace" to delete the last single digit/operator entered.
-- The pos/neg button will be applied to the number succeeding it, and must
-be inputted in that order, e.g. to get "-1" the order is: [+/-] -> [1].
-
 Requirements and limitations:
 1. If multiple chained calculations are entered (e.g. 1+2+3+4 ... etc), only the first one will be evaluated on clicking equals. Anything after the second operand will be cleared and discarded.
-2. Anything divded by 0 will display an error message upon pressing "equals". The input will be cleared upon pressing "equals".
+2. Anything divided by 0 will display an error message upon pressing "equals". The input will be cleared upon pressing "equals".
 3. If there are two or more consecutive operators, an error message will be displayed upon pressing "equals". The input will be cleared upon pressing "equals".
 4. If an input starts with an operator, an error message will be displayed upon pressing "equals". The input will be cleared upon pressing "equals".
 5. If an input starts with a decimal, an error message will be displayed upon pressing "equals". The input will be cleared upon pressing "equals".
 
 Ideas for future exploring:
-1) refactor: for the HTML buttons, I could use a JS loop to create them with tags.
+1) Refactor: for the HTML buttons, I could use a JS loop to create them with tags.

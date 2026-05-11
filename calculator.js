@@ -84,9 +84,7 @@ function magic(btnType, btnValue) {
       break
     case "equals":
       let str = displayPanelText.textContent;
-      console.log(str);
       let regexp = /(-*\d*\.?\d+)(\+|-|\/|\*)(-*\d*\.?\d+)/;
-      // let regexp = /(\d*\.?\d+)(\+|-|\/|\*)(\d*\.?\d+)/;
       let match = str.match(regexp);
       firstNumber = Number(match[1], 10);
       operator = reverseOperators[match[2]];

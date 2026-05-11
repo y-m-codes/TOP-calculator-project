@@ -9,11 +9,15 @@ The "happy path":
 6. Evaluated number is displayed.
 7. User either clears and starts from #1, or continues from 3.
 
-Requirements and limitations:
-1. If multiple chained calculations are entered (e.g. 1+2+3+4 ... etc), only the first one will be evaluated on clicking equals. Anything after the second operand will be cleared and discarded.
-2. Anything divided by 0 will display an error message upon pressing "equals". The input will be cleared upon pressing "equals".
-3. If there are two or more consecutive operators, an error message will be displayed upon pressing "equals". The input will be cleared upon pressing "equals".
-4. If an input starts or ends with an operator, an error message will be displayed upon pressing "equals". The input will be cleared upon pressing "equals".
+Usage constraints:
+a. If multiple chained calculations are entered (e.g. 1+2+3+4 ... etc), only the first one will be evaluated on clicking equals. Anything after the second operand will be cleared and discarded.
+b. Anything divided by 0 will display an error message upon pressing "equals". The input will be cleared upon pressing "equals".
+c. If there are two or more consecutive operators, an error message will be displayed upon pressing "equals". The input will be cleared upon pressing "equals".
+d. If an input starts or ends with an operator, an error message will be displayed upon pressing "equals". The input will be cleared upon pressing "equals".
+
+Outstanding requirements from TOP assignment:
+a. Your calculator should not evaluate more than a single pair of numbers at a time. Once a whole equation (2 operands & 1 operator) has been inputted, any consequent operator/operand should cause the equation to be evaluated and the result displayed.
+b. When a result is displayed, pressing a new digit should clear the result and start a new calculation instead of appending the digit to the existing result.
 
 Ideas for future exploring:
-1) Refactor: for the HTML buttons, I could use a JS loop to create them with tags.
+a. Refactor: for the HTML buttons, I could use a JS loop to create them with tags.

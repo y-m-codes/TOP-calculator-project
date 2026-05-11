@@ -89,8 +89,13 @@ function magic(btnType, btnValue) {
       firstNumber = Number(match[1], 10);
       operator = reverseOperators[match[2]];
       secondNumber = Number(match[3], 10);
-      let result = operate(firstNumber, secondNumber, operator);
-      displayPanelText.textContent = result;
+      if (operator === "divide" && secondNumber === 0) {
+        window.alert("Nice try - but you can't divide by zero!");
+        displayPanelText.textContent = ""
+      } else {
+        let result = operate(firstNumber, secondNumber, operator);
+        displayPanelText.textContent = result
+      }
       break
     case "decimal":
       displayPanelText.textContent += btnValue;

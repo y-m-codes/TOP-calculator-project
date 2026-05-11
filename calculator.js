@@ -84,11 +84,32 @@ function magic(btnType, btnValue) {
       break
     case "equals":
       let str = displayPanelText.textContent;
+
+      if (/^[+\/*]/.test(str)) {
+        window.alert("A calculation can't start with an operator!");
+        displayPanelText.textContent = ""
+        break;
+      };
+
+      if (/[+\/*]$/.test(str)) {
+        window.alert("A calculation can't end with an operator!");
+        displayPanelText.textContent = ""
+        break;
+      }
+
       let regexp = /(-*\d*\.?\d+)(\+|-|\/|\*)(-*\d*\.?\d+)/;
       let match = str.match(regexp);
+
+      if (!match) {
+        window.alert("That is not a valid input, please try again.");
+        displayPanelText.textContent = "";
+        break
+      }
+
       firstNumber = Number(match[1], 10);
       operator = reverseOperators[match[2]];
       secondNumber = Number(match[3], 10);
+
       if (operator === "divide" && secondNumber === 0) {
         window.alert("Nice try - but you can't divide by zero!");
         displayPanelText.textContent = ""

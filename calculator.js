@@ -115,7 +115,8 @@ function magic(btnType, btnValue) {
         displayPanelText.textContent = ""
       } else {
         let result = operate(firstNumber, secondNumber, operator);
-        displayPanelText.textContent = result
+        let resultRounded = Math.round(result * 10000) / 10000;
+        displayPanelText.textContent = resultRounded
       }
       break
     case "decimal":

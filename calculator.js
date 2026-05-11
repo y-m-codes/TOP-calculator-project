@@ -86,13 +86,13 @@ function magic(btnType, btnValue) {
       let str = displayPanelText.textContent;
 
       if (/^[+\/*]/.test(str)) {
-        window.alert("A calculation can't start with an operator!");
+        window.alert("An equation can't start with an operator!");
         displayPanelText.textContent = ""
         break;
       };
 
       if (/[+\/*]$/.test(str)) {
-        window.alert("A calculation can't end with an operator!");
+        window.alert("An equation can't end with an operator!");
         displayPanelText.textContent = ""
         break;
       }

@@ -1,19 +1,94 @@
-.visible-border {
-  border-style: solid;
-  border-color: navy;
+* {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.invisible-border {
+.visible-border {
+  border-style: solid;
+  border-color: #fb938f;
+}
+
+/* .invisible-border {
   border-style: dashed;
   border-color: darkorchid;
+} */
+
+#div-title {
+  width: 25%;
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  color: #c36b85;
+}
+
+#div-calculator-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 500px;
+  margin: 50px auto;
+  border-radius: 10px;
+  background-color: #f2cac8;
+}
+
+#div-calculator-inner {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  height: 85%;
+  border-radius: 10px;
+}
+
+#div-display-panel {
+  height: 15%;
+  width: 80%;
+  margin: 20px auto;
+  border-radius: 10px;
+  background: white;
 }
 
 #div-keypad {
   display: flex;
   justify-content: space-evenly;
+  flex-grow: 1;
+  gap: 0 10px;
 }
 
 .keypad-cluster {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  gap: 10px 0;
+}
+
+button {
+  border-radius: 5px;
+  background-color:blanchedalmond;
+  color:#c36b85
+}
+
+.four-stack {
+  flex-grow: 1;
+}
+
+#backspace {
+  flex-grow: 1;
+}
+
+#clear {
+  flex-grow: 1;
+}
+
+#equals {
+  flex-grow: 5;
+}
+
+.cluster-one {
+  flex-grow: 1;
+}
+
+#cluster-one::after {
+  content: '';
+  height: 22.5%;
 }
